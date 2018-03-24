@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anthony.sublime.intro">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            tools:layout_editor_absoluteX="111dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+        <Button
+            android:id="@+id/btn_logar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logar"
+            tools:layout_editor_absoluteX="116dp"
+            tools:layout_editor_absoluteY="202dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
