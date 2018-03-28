@@ -76,7 +76,7 @@ public class tela_principal extends AppCompatActivity {
 
                 if (position == 0) {
                     toolbar.startAnimation(fade_in);
-                    toolbar.setTitle("Sublimes");
+                    toolbar.setTitle("Supremes");
                 }
                 if (position == 1) {
                     toolbar.startAnimation(fade_in);
