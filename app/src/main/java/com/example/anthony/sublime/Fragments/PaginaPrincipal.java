@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.anthony.sublime.R;
 import com.example.anthony.sublime.Registrar.user_gs;
@@ -45,6 +46,8 @@ public class PaginaPrincipal extends Fragment {
     RecyclerView.Adapter adapter;
     List<user_gs> list = new ArrayList<>();
     LinearLayoutManager mLayoutManager;
+    FirebaseDatabase database;
+    DatabaseReference ref = database.getReference().child("users");
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,66 +96,36 @@ public class PaginaPrincipal extends Fragment {
 
         // init constraintLayout
         View rootView = inflater.inflate(R.layout.fragment_pagina_principal, container, false);
-
-       /* constraintLayout = (ConstraintLayout) rootView.findViewById(R.id.constraint_page);
-
-        // initializing animation drawable by getting background from constraint layout
-        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        // setting enter fade animation duration to 10 seconds
-        animationDrawable.//setEnterFadeDuration(0);
-
-        // setting exit fade animation duration to 5 seconds
-        animationDrawable.setExitFadeDuration(0);*/
-
         recyclerView = rootView.findViewById(R.id.recycler_view);
-
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        // Read from the database
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myRef = database.getReference("users").push();
-
-        recyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                for (DataSnapshot userInfo : dataSnapshot.getChildren()){
-                    user_gs rc_ad = userInfo.getValue(user_gs.class);
-
-                    list.add(rc_ad);
-                }
-
-                adapter = new RecyclerViewAdapter(getContext(), list);
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(adapter);
-
+                /*for (DataSnapshot alert: dataSnapshot.getChildren()) {
+                    System.out.println(alert.getValue());
+                }*/
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
+                recyclerView.setAdapter(new RecyclerViewAdapter(values));
             }
 
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                System.out.println("Failed to read value." + error.toException());
             }
         });
 
-
-
-
         return rootView;
 }
-
-    @Override
-    public void onActivityCreated (@Nullable Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-    }
 
     private class GetDataFromFirebase extends AsyncTask<Void,Void,Boolean>{
 
@@ -169,6 +142,20 @@ public class PaginaPrincipal extends Fragment {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+        }
+    }
+
+    @Override
+    public void onActivityCreated (@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    private static class ViewHolderUsers extends RecyclerView.ViewHolder {
+        TextView name_user;
+
+        public ViewHolderUsers(View itemView) {
+            super(itemView);
+            name_user = itemView.findViewById(R.id.nome_user_post);
         }
     }
 

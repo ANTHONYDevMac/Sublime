@@ -37,6 +37,7 @@
             android:theme="@style/AppTheme.NoTitleBarTool" />
         <activity android:name=".Registrar.profile_foto"
             android:theme="@style/AppTheme.NoTitleBarTool"></activity>
+        <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
 
     </application>
 

@@ -5,23 +5,26 @@
     <color name="colorAccent">#028cdf</color>
 
     <!-- 1st Gradient color -->
-    <color name="colorPurple_A400">#0e024a</color>
-    <color name="colorPurple_900">#02317e</color>
+    <color name="colorPurple_A400">#271773</color>
+    <color name="colorPurple_900">#08804e</color>
     <!-- ./ 1st Gradient color -->
 
     <!-- 2nd Gradient color -->
     <color name="colorAmber_A400">#1f1263</color>
-    <color name="colorAmber_900">#0d439b</color>
+    <color name="colorAmber_900">#0d793e</color>
     <!-- ./ 2nd Gradient color -->
 
     <!-- 3rd Gradient color -->
-    <color name="colorGreen_A400">#251964</color>
-    <color name="colorGreen_900">#083d8f</color>
+    <color name="colorGreen_A400">#1b44ac</color>
+    <color name="colorGreen_900">#1d9469</color>
     <!-- ./ 3rd Gradient color -->
 
     <!-- 4th Gradient color -->
-    <color name="colorRed_A400">#6a1794</color>
-    <color name="colorRed_900">#300a90</color>
+    <color name="colorRed_A400">#941da1</color>
+    <color name="colorRed_900">#d41a65</color>
     <!-- ./ 4th Gradient color -->
+
+    <color name="colorRed_masc">#254bae</color>
+    <color name="colorRed_masc2">#179c6b</color>
 
 </resources>

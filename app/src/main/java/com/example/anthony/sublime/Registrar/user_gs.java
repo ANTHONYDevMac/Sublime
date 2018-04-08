@@ -10,12 +10,6 @@ public class user_gs {
 
     public user_gs() {}
 
-    public user_gs(String sobrenome, String descricao, String nome) {
-        this.sobrenome = sobrenome;
-        this.descricao = descricao;
-        this.nome = nome;
-    }
-
     public String getSobrenome() {
         return sobrenome;
     }
@@ -26,5 +20,10 @@ public class user_gs {
         return nome;
     }
 
+    public user_gs(String sobrenome, String descricao, String nome) {
+        this.sobrenome = sobrenome;
+        this.descricao = descricao;
+        this.nome = nome;
+    }
 
 }

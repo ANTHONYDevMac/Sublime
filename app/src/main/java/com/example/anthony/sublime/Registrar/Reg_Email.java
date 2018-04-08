@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.anthony.sublime.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Reg_Email extends AppCompatActivity {
 
@@ -31,10 +33,15 @@ public class Reg_Email extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Reg_Email.this, Reg_Password.class);
-                intent.putExtra("email_extra", editText.getText().toString());
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(Reg_Email.this).toBundle());
-
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                if (user == null){
+                    finish();
+                } else {
+                    Intent intent = new Intent(Reg_Email.this, Reg_Password.class);
+                    intent.putExtra("email_extra", editText.getText().toString());
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(Reg_Email.this).toBundle());
+                }
             }
         });
     }
