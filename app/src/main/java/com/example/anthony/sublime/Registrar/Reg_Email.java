@@ -35,14 +35,12 @@ public class Reg_Email extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
-                if (user == null){
-                    finish();
-                } else {
-                    Intent intent = new Intent(Reg_Email.this, Reg_Password.class);
-                    intent.putExtra("email_extra", editText.getText().toString());
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(Reg_Email.this).toBundle());
-                }
+
+                Intent intent = new Intent(Reg_Email.this, Reg_Password.class);
+                intent.putExtra("email_extra", editText.getText().toString());
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(Reg_Email.this).toBundle());
             }
-        });
+
+            });
+        }
     }
-}

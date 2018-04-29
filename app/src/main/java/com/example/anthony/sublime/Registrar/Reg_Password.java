@@ -50,9 +50,11 @@ public class Reg_Password extends AppCompatActivity {
             //Se houver um email vindo de um intent
             email_extra = bd.get("email_extra").toString();
 
+
             fab_pass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     String senha = ed_senha.getText().toString();
                     String confirmacao = ed_confirma.getText().toString();
 
@@ -64,6 +66,7 @@ public class Reg_Password extends AppCompatActivity {
                     } else {
                         textView_erro.setText("As senhas não se coincidem");
                     }
+
                 }
             });
         }

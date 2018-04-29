@@ -47,7 +47,6 @@ public class PaginaPrincipal extends Fragment {
     List<user_gs> list = new ArrayList<>();
     LinearLayoutManager mLayoutManager;
     FirebaseDatabase database;
-    DatabaseReference ref = database.getReference().child("users");
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -102,19 +101,20 @@ public class PaginaPrincipal extends Fragment {
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference myRef = database.getReference().child("users");
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                /*for (DataSnapshot alert: dataSnapshot.getChildren()) {
-                    System.out.println(alert.getValue());
-                }*/
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                ArrayList<String> values = (ArrayList<String>) dataSnapshot.getValue();
-                recyclerView.setAdapter(new RecyclerViewAdapter(values));
+
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+
+                    user_gs u = d.getValue(user_gs.class);
+
+                }
+
             }
 
             @Override
@@ -125,9 +125,11 @@ public class PaginaPrincipal extends Fragment {
         });
 
         return rootView;
-}
 
-    private class GetDataFromFirebase extends AsyncTask<Void,Void,Boolean>{
+
+    }
+
+    private class GetDataFromFirebase extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -146,7 +148,7 @@ public class PaginaPrincipal extends Fragment {
     }
 
     @Override
-    public void onActivityCreated (@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -158,7 +160,6 @@ public class PaginaPrincipal extends Fragment {
             name_user = itemView.findViewById(R.id.nome_user_post);
         }
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -208,7 +209,6 @@ public class PaginaPrincipal extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 
 
 }

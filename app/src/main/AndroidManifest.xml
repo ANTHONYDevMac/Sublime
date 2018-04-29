@@ -15,7 +15,7 @@
         android:theme="@style/Base.Theme.AppCompat.Light"
         tools:ignore="ExtraText">
         <activity android:name=".intro"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoTitleBarTool">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
