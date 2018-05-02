@@ -9,10 +9,10 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import com.example.anthony.sublime.R;
@@ -44,7 +44,7 @@ public class PaginaPrincipal extends Fragment {
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     RecyclerView.Adapter adapter;
-    List<user_gs> list = new ArrayList<>();
+    List<String> list = new ArrayList<String>();
     LinearLayoutManager mLayoutManager;
     FirebaseDatabase database;
     // TODO: Rename parameter arguments, choose names that match
@@ -98,11 +98,11 @@ public class PaginaPrincipal extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         new GetDataFromFirebase().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("users");
-
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,8 +112,14 @@ public class PaginaPrincipal extends Fragment {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
 
                     user_gs u = d.getValue(user_gs.class);
+                    list.add(u.nome);
+
 
                 }
+
+                adapter = new MyAdapter(list);
+                recyclerView.setAdapter(adapter);
+                recyclerView.getAdapter().notifyDataSetChanged();
 
             }
 
@@ -125,9 +131,10 @@ public class PaginaPrincipal extends Fragment {
         });
 
         return rootView;
-
-
     }
+
+
+
 
     private class GetDataFromFirebase extends AsyncTask<Void, Void, Boolean> {
 

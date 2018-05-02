@@ -39,8 +39,6 @@ public class login extends AppCompatActivity {
         email_ed = findViewById(R.id.logar_email);
         senha_ed = findViewById(R.id.logar_senha);
 
-        text_logado = findViewById(R.id.text_logado);
-
         logar = findViewById(R.id.logar_button);
 
         logar.setOnClickListener(new View.OnClickListener(){
@@ -51,8 +49,6 @@ public class login extends AppCompatActivity {
                 senha = senha_ed.getText().toString();
 
                 logarUsuario(email, senha);
-
-                myRef.setValue("hello World, Anthony");
             }
         });
 
@@ -65,11 +61,9 @@ public class login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        text_logado.setText("usuario logado com sucesso" + email);
-
                         Intent intent = new Intent(login.this, tela_principal.class);
                         startActivity(intent);
-
+                        finish();
                     } else {
 
                     }

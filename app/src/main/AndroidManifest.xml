@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login" />
+        <activity
+            android:name=".login"
+            android:theme="@style/AppTheme.NoTitleBarTool" />
         <activity
             android:name=".tela_principal"
             android:theme="@style/AppTheme.NoTitleBarTool" />
