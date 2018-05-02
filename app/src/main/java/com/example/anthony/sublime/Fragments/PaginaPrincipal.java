@@ -17,12 +17,15 @@ import android.widget.TextView;
 
 import com.example.anthony.sublime.R;
 import com.example.anthony.sublime.Registrar.user_gs;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -104,36 +107,53 @@ public class PaginaPrincipal extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("users");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        Query query = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("users")
+                .limitToLast(50);
+
+        /*FirebaseRecyclerOptions<user_gs> options =
+                new FirebaseRecyclerOptions.Builder<user_gs>()
+                        .setQuery(query, user_gs.class)
+                        .build();
+
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<user_gs, MyHolder>(options) {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                // Create a new instance of the ViewHolder, in this case we are using a custom
+                // layout called R.layout.message for each item
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.card_adapter, parent, false);
 
-
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-
-                    user_gs u = d.getValue(user_gs.class);
-                    list.add(u.nome);
-
-
-                }
-
-                adapter = new MyAdapter(list);
-                recyclerView.setAdapter(adapter);
-                recyclerView.getAdapter().notifyDataSetChanged();
-
+                return new MyHolder(view);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                System.out.println("Failed to read value." + error.toException());
+            protected void onBindViewHolder(MyHolder holder, int position, user_gs model) {
+                holder.setNome(model.getNome());
             }
-        });
 
+        };
+
+        recyclerView.setAdapter(adapter);
+*/
         return rootView;
     }
 
 
+    public static class MyHolder extends RecyclerView.ViewHolder {
+        View mView;
+
+        public MyHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setNome(String nome) {
+            TextView userNameView = mView.findViewById(R.id.nome_user_post);
+            userNameView.setText(nome);
+        }
+    }
 
 
     private class GetDataFromFirebase extends AsyncTask<Void, Void, Boolean> {
